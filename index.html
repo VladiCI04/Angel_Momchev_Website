@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Angel Momchev - Designer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: white;
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 100; /* Хедърът да е над всичко */
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 28px;
+            font-weight: 300;
+        }
+
+        .logo strong {
+            font-weight: 600;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: #18a8e6;
+            text-decoration: underline;
+        }
+
+        .lang-switcher {
+            display: flex;
+            gap: 10px;
+        }
+
+        .lang-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            transition: transform 0.3s;
+        }
+
+        .lang-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* --- НОВ HERO СТИЛ (ДИНАМИЧЕН КОЛАЖ) --- */
+        .hero-container {
+            position: relative;
+            height: 90vh; /* Почти цял екран */
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #1a1a1a;
+        }
+
+        /* Решетка за колоните със снимки */
+        .marquee-grid {
+            position: absolute;
+            top: -20%;
+            left: 0;
+            width: 100%;
+            height: 150%; /* По-високо от контейнера за движението */
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 колони */
+            gap: 20px;
+            transform: rotate(-5deg) scale(1.1); /* Леко завъртане за стил */
+            opacity: 0.6; /* Леко прозрачни, за да изпъкне текста */
+        }
+
+        .marquee-col {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .marquee-col img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        /* Анимации за колоните */
+        .col-up {
+            animation: scroll-up 40s linear infinite;
+        }
+        
+        .col-down {
+            animation: scroll-down 50s linear infinite;
+        }
+
+        @keyframes scroll-up {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
+        }
+
+        @keyframes scroll-down {
+            0% { transform: translateY(-50%); }
+            100% { transform: translateY(0); }
+        }
+
+        /* Слой за затъмняване под текста */
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.8) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 0 20px;
+            max-width: 800px;
+        }
+
+        .hero-content h1 {
+            font-size: 64px;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+            letter-spacing: -1px;
+        }
+
+        .hero-content p {
+            font-size: 24px;
+            line-height: 1.6;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+            font-weight: 300;
+        }
+
+        /* Стилове за останалата част (същите като преди) */
+        .section {
+            padding: 80px 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section h2 {
+            font-size: 36px;
+            margin-bottom: 40px;
+            text-align: center;
+            font-weight: 300;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s, background 0.3s;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .service-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .service-card h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .service-card p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .project-card:hover {
+            transform: scale(1.03);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 250px; /* Малко по-големи */
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+            object-fit: cover;
+        }
+
+        .project-content {
+            padding: 20px;
+        }
+
+        .project-content h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .project-content p {
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 50px;
+            background: rgba(0, 0, 0, 0.2);
+            margin-top: 60px;
+        }
+
+        .contact-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .contact-icons a {
+            color: white;
+            font-size: 32px;
+            transition: opacity 0.3s;
+        }
+
+        .contact-icons a:hover {
+            opacity: 0.7;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+        }
+
+        /* Мобилна адаптация */
+        @media (max-width: 768px) {
+            .marquee-grid {
+                grid-template-columns: repeat(2, 1fr); /* 2 колони на мобилни */
+            }
+            .hero-content h1 {
+                font-size: 42px;
+            }
+            header {
+                padding: 15px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <!-- Лого -->
+            <table border="0" cellpadding="0" cellspacing="0">
+              <tr>
+                <td>
+                  <a href="index.html">
+                    <img src="./images/index_01.png" border="0" width="70" height="60" alt="logo" onerror="this.style.display='none'">
+                  </a>
+                </td>
+                <td>
+                  <a href="index.html">
+                    <img src="./images/index_02.png" border="0" width="250" height="60" alt="logo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNTAiIGhlaWdodD0iNjAiPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjNlbSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIyNCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiPkFuZ2VsIE1vbWNoZXY8L3RleHQ+PC9zdmc+'">
+                  </a>
+                </td>
+                <td>
+                  <a href="index.html">
+                    <img src="./images/index_03.png" border="0" width="65" height="60" alt="logo" onerror="this.style.display='none'">
+                  </a>
+                </td>
+              </tr>
+            </table>
+            <!-- Лого -->
+        <nav>
+            <ul class="nav-menu">
+                <li><a href="index.html" data-key="nav_home">Начало</a></li>
+                <li><a href="portfolio.html" data-key="nav_portfolio">Портфолио</a></li>
+                <li><a href="about.html" data-key="nav_about">За мен</a></li>
+                <li class="lang-switcher">
+                    <button class="lang-btn" onclick="changeLanguage('bg')"><img src="./images/bulgaria-flag.png" width="30" height="30" alt="BG" onerror="this.style.display='none';this.parentElement.innerHTML='BG'"></button>
+                    <button class="lang-btn" onclick="changeLanguage('en')"><img src="./images/english-flag.png" width="30" height="30" alt="EN" onerror="this.style.display='none';this.parentElement.innerHTML='EN'"></button>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- НОВА HERO СЕКЦИЯ С ДИНАМИЧЕН КОЛАЖ -->
+    <section class="hero-container">
+        <div class="marquee-grid">
+            <!-- Колона 1: Движи се нагоре -->
+            <div class="marquee-col col-up">
+                <img src="./resources/ArtImage1.jpg">
+                <img src="./resources/ArtImage2.jpg">
+                <img src="./resources/ArtImage3.jpg">
+                <img src="./resources/ArtImage4.jpg">
+                <img src="./resources/Redesign1.jpg">
+                <img src="./resources/PhotoImage1.jpg">
+                <!-- Повтаряме за безкраен ефект -->
+                <img src="./resources/ArtImage1.jpg">
+                <img src="./resources/ArtImage2.jpg">
+                <img src="./resources/ArtImage3.jpg">
+                <img src="./resources/ArtImage4.jpg">
+                <img src="./resources/Redesign1.jpg">
+                <img src="./resources/PhotoImage1.jpg">
+            </div>
+            
+            <!-- Колона 2: Движи се надолу (по-бавно или различно) -->
+            <div class="marquee-col col-down">
+                <img src="./resources/DesignImage1.jpg">
+                <img src="./resources/DesignImage2.jpg">
+                <img src="./resources/DesignImage3.jpg">
+                <img src="./resources/Redesign2.jpg">
+                <img src="./resources/PhotoImage2.jpg">
+                <!-- Повтаряме -->
+                <img src="./resources/DesignImage1.jpg">
+                <img src="./resources/DesignImage2.jpg">
+                <img src="./resources/DesignImage3.jpg">
+                <img src="./resources/Redesign2.jpg">
+                <img src="./resources/PhotoImage2.jpg">
+            </div>
+
+            <!-- Колона 3: Движи се нагоре -->
+            <div class="marquee-col col-up">
+                <img src="./resources/ProductImage1.jpg">
+                <img src="./resources/ProductImage2.jpg">
+                <img src="./resources/PosterImage1.jpg">
+                <img src="./resources/Redesign3.jpg">
+                <img src="./resources/PhotoImage3.jpg">
+                <!-- Повтаряме -->
+                <img src="./resources/ProductImage1.jpg">
+                <img src="./resources/ProductImage2.jpg">
+                <img src="./resources/PosterImage1.jpg">
+                <img src="./resources/Redesign3.jpg">
+                <img src="./resources/PhotoImage3.jpg">
+            </div>
+        </div>
+
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content">
+            <h1 data-key="hero_title">Добре дошли!</h1>
+            <p data-key="hero_desc">Аз съм Ангел Момчев - дизайнер със страст към творчеството и вдъхновението. Специализирам в интериорен дизайн, графичен дизайн, рисуване и фотография.</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 data-key="services_title">Моите Услуги</h2>
+        <div class="services-grid">
+            <a href="portfolio.html?filter=interior" style="text-decoration: none; color: inherit;">
+                <div class="service-card">
+                    <div class="service-icon">🏛️</div>
+                    <h3 data-key="service_interior_title">Интериорен дизайн</h3>
+                    <p data-key="service_interior_desc">Създавам функционални и естетични пространства, които отразяват вашия стил и нужди.</p>
+                </div>
+            </a>
+            <a href="portfolio.html?filter=graphic" style="text-decoration: none; color: inherit;">
+                <div class="service-card">
+                    <div class="service-icon">🎨</div>
+                    <h3 data-key="service_graphic_title">Графичен дизайн</h3>
+                    <p data-key="service_graphic_desc">Лога, брандинг, плакати и визуална идентичност за вашия бизнес или проект.</p>
+                </div>
+            </a>
+            <a href="portfolio.html?filter=art" style="text-decoration: none; color: inherit;">
+                <div class="service-card">
+                    <div class="service-icon">🖌️</div>
+                    <h3 data-key="service_art_title">Рисуване</h3>
+                    <p data-key="service_art_desc">Оригинални художествени творби и илюстрации с внимание към детайла.</p>
+                </div>
+            </a>
+            <a href="portfolio.html?filter=photo" style="text-decoration: none; color: inherit;">
+                <div class="service-card">
+                    <div class="service-icon">📷</div>
+                    <h3 data-key="service_photo_title">Фотография</h3>
+                    <p data-key="service_photo_desc">Професионална фотография и обработка на изображения за всякакви нужди.</p>
+                </div>
+            </a>
+            <a href="portfolio.html?filter=packaging" style="text-decoration: none; color: inherit;">
+                <div class="service-card">
+                    <div class="service-icon">📦</div>
+                    <h3 data-key="service_pack_title">Опаковки на продукти</h3>
+                    <p data-key="service_pack_desc">Дизайн на привлекателни и функционални опаковки, които изпъкват.</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 data-key="projects_title">Избрани Проекти</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <img class="project-image" src="./resources/DesignImage2.jpg" onerror="this.style.display='none'; this.parentElement.querySelector('h3').style.marginTop='20px'">
+                <div class="project-content">
+                    <h3 data-key="proj_apt_title">Модерен апартамент</h3>
+                    <p data-key="proj_apt_desc">Пълна реконструкция на интериора с минималистичен дизайн и максимална функционалност.</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <img class="project-image" src="./resources/ProductImage1.jpg" onerror="this.style.display='none'; this.parentElement.querySelector('h3').style.marginTop='20px'">
+                <div class="project-content">
+                    <h3 data-key="proj_brand_title">Брандинг за стартъп</h3>
+                    <p data-key="proj_brand_desc">Цялостна визуална идентичност включваща лого, цветова палитра и маркетингови материали.</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <img class="project-image" src="./resources/PhotoImage3.jpg" onerror="this.style.display='none'; this.parentElement.querySelector('h3').style.marginTop='20px'">
+                <div class="project-content">
+                    <h3 data-key="proj_nature_title">Фото серия "Природа"</h3>
+                    <p data-key="proj_nature_desc">Колекция от пейзажни фотографии, заснети в различни сезони из България.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <h2 data-key="contact_title">Контакти</h2>
+        <div class="contact-icons">
+            <a href="callto:0886851397" class="social-icon"><img src="./images/contact.png" border="0" width="30" height="30" alt="footer contact" onerror="this.parentElement.innerHTML='📞'"></a>
+            <a href="mailto:angelmomcev0@gmail.com" class="social-icon">  <img src="./images/gmail.png" border="0" width="30" height="30" alt="footer gmail" onerror="this.parentElement.innerHTML='📧'"></a>
+            <a href="https://www.facebook.com/angel.momchev.3" target="_blank" class="social-icon"><img src="./images/facebook.png" border="0" width="30" height="30" alt="footer facebook" onerror="this.parentElement.innerHTML='FB'"></a>
+            <a href="https://www.instagram.com/angelmomchev" target="_blank" class="social-icon"><img src="./images/instagram.png" border="0" width="30" height="30" alt="footer instagram" onerror="this.parentElement.innerHTML='IG'"></a>
+        </div>
+        <p data-key="copyright" style="margin-top: 20px; opacity: 0.8;">© 2025 Ангел Момчев. Всички права запазени.</p>
+    </footer>
+
+    <script>
+        // 1. Превод
+        const translations = {
+            bg: {
+                nav_home: "Начало",
+                nav_portfolio: "Портфолио",
+                nav_about: "За мен",
+                hero_title: "Добре дошли!",
+                hero_desc: "Аз съм Ангел Момчев - дизайнер със страст към творчеството и вдъхновението. Специализирам в интериорен дизайн, графичен дизайн, рисуване и фотография.",
+                services_title: "Моите Услуги",
+                service_interior_title: "Интериорен дизайн",
+                service_interior_desc: "Създавам функционални и естетични пространства, които отразяват вашия стил и нужди.",
+                service_graphic_title: "Графичен дизайн",
+                service_graphic_desc: "Лога, брандинг, плакати и визуална идентичност за вашия бизнес или проект.",
+                service_art_title: "Рисуване",
+                service_art_desc: "Оригинални художествени творби и илюстрации с внимание към детайла.",
+                service_photo_title: "Фотография",
+                service_photo_desc: "Професионална фотография и обработка на изображения за всякакви нужди.",
+                service_pack_title: "Опаковки на продукти",
+                service_pack_desc: "Дизайн на привлекателни и функционални опаковки, които изпъкват.",
+                projects_title: "Избрани Проекти",
+                proj_apt_title: "Модерен апартамент",
+                proj_apt_desc: "Пълна реконструкция на интериора с минималистичен дизайн и максимална функционалност.",
+                proj_brand_title: "Брандинг за стартъп",
+                proj_brand_desc: "Цялостна визуална идентичност включваща лого, цветова палитра и маркетингови материали.",
+                proj_nature_title: "Фото серия \"Природа\"",
+                proj_nature_desc: "Колекция от пейзажни фотографии, заснети в различни сезони из България.",
+                contact_title: "Контакти",
+                copyright: "© 2025 Ангел Момчев. Всички права запазени."
+            },
+            en: {
+                nav_home: "Home",
+                nav_portfolio: "Portfolio",
+                nav_about: "About Me",
+                hero_title: "Welcome!",
+                hero_desc: "I am Angel Momchev - a designer with a passion for creativity and inspiration. I specialize in interior design, graphic design, drawing, and photography.",
+                services_title: "My Services",
+                service_interior_title: "Interior Design",
+                service_interior_desc: "I create functional and aesthetic spaces that reflect your style and needs.",
+                service_graphic_title: "Graphic Design",
+                service_graphic_desc: "Logos, branding, posters, and visual identity for your business or project.",
+                service_art_title: "Drawing & Art",
+                service_art_desc: "Original artworks and illustrations with attention to detail.",
+                service_photo_title: "Photography",
+                service_photo_desc: "Professional photography and image editing for all needs.",
+                service_pack_title: "Product Packaging",
+                service_pack_desc: "Design of attractive and functional packaging that stands out.",
+                projects_title: "Selected Projects",
+                proj_apt_title: "Modern Apartment",
+                proj_apt_desc: "Complete interior reconstruction with minimalist design and maximum functionality.",
+                proj_brand_title: "Startup Branding",
+                proj_brand_desc: "Complete visual identity including logo, color palette, and marketing materials.",
+                proj_nature_title: "Photo Series \"Nature\"",
+                proj_nature_desc: "A collection of landscape photographs taken during different seasons in Bulgaria.",
+                contact_title: "Contacts",
+                copyright: "© 2025 Angel Momchev. All rights reserved."
+            }
+        };
+
+        // 2. Функция за смяна на езика
+        function changeLanguage(lang) {
+            document.querySelectorAll('[data-key]').forEach(element => {
+                const key = element.getAttribute('data-key');
+                if (translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+
+            localStorage.setItem('selectedLang', lang);
+            document.documentElement.lang = lang;
+        }
+
+        // 3. Инициализация
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('selectedLang') || 'bg';
+            changeLanguage(savedLang);
+        });
+    </script>
+</body>
+</html>
